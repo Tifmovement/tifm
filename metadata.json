@@ -1,0 +1,6 @@
+{
+  "name": "The Intentional Father Movement",
+  "description": "A premium landing page, high-end conversational registration chat interface, and a gamified members dashboard for mentoring fathers and young men.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
