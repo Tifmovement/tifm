@@ -4,6 +4,7 @@ import {
   ChevronRight, ArrowRight, Check, Eye, EyeOff, Sparkles, User, Mail, 
   Phone, MapPin, ShieldCheck, HelpCircle, ArrowLeft, Loader2
 } from 'lucide-react';
+import Logo from './Logo';
 
 interface ConversationalOnboardingProps {
   onComplete: (userProfile: any) => void;
@@ -432,8 +433,9 @@ export default function ConversationalOnboarding({ onComplete, onCancel }: Conve
       
       {/* 🔴 HEADER BAR - CENTERING AND STYLING */}
       <header className="px-6 py-4 md:px-12 md:py-6 border-b border-white/5 grid grid-cols-3 items-center bg-[#0E1B3D]/80 backdrop-blur-md z-30 pointer-events-auto w-full">
-        {/* Left Column: back button */}
-        <div className="flex items-center justify-start">
+        {/* Left Column: logo and back button */}
+        <div className="flex items-center justify-start gap-4">
+          <Logo />
           {step > 1 && (
             <button 
               onClick={() => {

@@ -3,11 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>The Intentional Father Movement</title>
+    <meta name="description" content="A movement of response-able fathers building legacy, character, and vision." />
+    <meta name="theme-color" content="#050914" />
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dsmsugpys/image/upload/v1780667044/Logo_tifm_r1o8sm.png" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dsmsugpys/image/upload/v1780667044/Logo_tifm_r1o8sm.png" />
+    <link rel="manifest" href="/manifest.json" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
+            .catch((err) => console.error('Service Worker registration failed:', err));
+        });
+      }
+    </script>
   </body>
 </html>
 

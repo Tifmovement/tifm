@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, ArrowRight, LogIn, Users, Zap, ShieldCheck, Sparkles, Info } from 'lucide-react';
 import FatherDashboard from './components/FatherDashboard';
 import ConversationalOnboarding from './components/ConversationalOnboarding';
+import Logo from './components/Logo';
+import VisualDiary from './components/VisualDiary';
+import EventSchedule from './components/EventSchedule';
 
 // Data for our visual carousel slides
 interface TitleSegment {
@@ -56,7 +59,7 @@ const SLIDES: Slide[] = [
     description: "Join a thriving community of intentional fathers committed to being physically and emotionally present in their children's lives.",
     ctaText: "Join The Foundation",
     image: "/src/assets/images/lush_rainforest_canopy_1780581121503.png",
-    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/v1780584745/IMG_3576_anxkvq.mov",
+    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/q_auto,vc_auto/v1780584745/IMG_3576_anxkvq.mp4",
     themeColor: "text-[#E31E24]",
     borderColor: "border-[#E31E24]",
     pulseClass: "bg-[#E31E24]",
@@ -87,7 +90,7 @@ const SLIDES: Slide[] = [
     description: "Every boy is becoming a man. The values he learns today and the examples he follows will shape the husband, leader, and father he becomes tomorrow.",
     ctaText: "Start Your Journey",
     image: "/src/assets/images/african_savanna_safari_1780581188839.png",
-    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/v1780584915/IMG_5664_wnrmta.mov",
+    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/q_auto,vc_auto/v1780584915/IMG_5664_wnrmta.mp4",
     themeColor: "text-[#E31E24]",
     borderColor: "border-[#E31E24]",
     pulseClass: "bg-[#E31E24]",
@@ -115,7 +118,7 @@ const SLIDES: Slide[] = [
     description: "Through school Impact Tours, mentorship, books, and technology support, we are helping boys discover purpose, build character, and prepare for the future.",
     ctaText: "Be Part Of The Story",
     image: "/src/assets/images/african_crater_wildlife_1780581206524.png",
-    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/v1780585029/IMG_4115_tygvur.mov",
+    videoSrc: "https://res.cloudinary.com/dsmsugpys/video/upload/q_auto,vc_auto/v1780585029/IMG_4115_tygvur.mp4",
     themeColor: "text-[#E31E24]",
     borderColor: "border-[#E31E24]",
     pulseClass: "bg-[#E31E24]",
@@ -162,7 +165,7 @@ const TESTIMONIALS = [
     name: "Tunde Opeyemi",
     role: "Father of Two",
     time: "1 week ago",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
+    avatar: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&q=80&w=150&h=150"
   },
   {
     id: "test-2",
@@ -170,7 +173,7 @@ const TESTIMONIALS = [
     name: "Chidi Nwachukwu",
     role: "Father of Three",
     time: "4 days ago",
-    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=150&h=150"
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150"
   },
   {
     id: "test-3",
@@ -178,7 +181,7 @@ const TESTIMONIALS = [
     name: "Olumide Adebayo",
     role: "Father of One",
     time: "2 weeks ago",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
+    avatar: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=150&h=150"
   },
   {
     id: "test-4",
@@ -186,7 +189,7 @@ const TESTIMONIALS = [
     name: "Emeka Okoye",
     role: "Father of Four",
     time: "3 weeks ago",
-    avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=150&h=150"
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150&h=150"
   },
   {
     id: "test-5",
@@ -194,7 +197,7 @@ const TESTIMONIALS = [
     name: "Abubakar Ibrahim",
     role: "Father of Three",
     time: "1 month ago",
-    avatar: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&q=80&w=150&h=150"
+    avatar: "https://images.unsplash.com/photo-1507152832244-10d45a7e3488?auto=format&fit=crop&q=80&w=150&h=150"
   }
 ];
 
@@ -266,6 +269,11 @@ export default function App() {
       {/* SECTION 1: DYNAMIC HERO SLIDER */}
       <section className="relative w-full h-screen overflow-hidden select-none flex-shrink-0">
         
+        {/* Logo at top left corner of hero section */}
+        <div className="absolute top-6 left-6 md:top-8 md:left-8 lg:top-12 lg:left-12 z-40 pointer-events-auto">
+          <Logo />
+        </div>
+
         {/* White login icon at top right corner of hero section */}
         <div className="absolute top-6 right-6 md:top-8 md:right-8 lg:top-12 lg:right-12 z-40 pointer-events-auto">
           <button 
@@ -315,8 +323,8 @@ export default function App() {
           <div className="pt-8 md:pt-12 lg:pt-16 px-8 md:px-12 lg:px-16" />
 
           {/* HERO BODY FOR INFORMATION PANEL ON THE LEFT SLIT SECTION */}
-          {/* pb-24 on mobile secures excellent breathing room so it doesn't overlap the navigation arrow buttons */}
-          <main className="px-8 md:px-12 lg:px-16 py-6 md:py-10 flex flex-col justify-center flex-1 max-w-xl md:max-w-none pb-24 md:pb-10">
+          {/* pb-32 and pr-14 on mobile secures excellent breathing room so it doesn't overlap or touch the navigation dots / arrow buttons */}
+          <main className="pl-6 pr-16 md:px-12 lg:px-16 py-6 md:py-10 flex flex-col justify-center flex-1 max-w-xl md:max-w-none pb-32 md:pb-10">
             <div className="space-y-4 md:space-y-6">
               
               {/* Context Header Label */}
@@ -337,13 +345,13 @@ export default function App() {
 
                 {/* Desktop rendering structure of headline titles */}
                 <div className="hidden md:block">
-                  <h1 className="font-sans font-black text-4xl lg:text-5xl xl:text-6xl xl:leading-[0.95] tracking-tight whitespace-normal">
+                  <h1 className="font-sans font-black text-3xl lg:text-4xl xl:text-5xl tracking-tight whitespace-normal leading-tight md:leading-[1.1]">
                     {activeSlide.desktopTitle.map((line, lIdx) => (
                       <React.Fragment key={lIdx}>
                         {lIdx > 0 && <br />}
-                        <span className="inline-block whitespace-nowrap">
+                        <span className="inline-block whitespace-normal max-w-full">
                           {line.map((segment, sIdx) => (
-                            <span key={sIdx} className="text-white font-black leading-none inline-block filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.4)]">
+                            <span key={sIdx} className="text-white font-black inline filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.4)]">
                               {segment.text}
                             </span>
                           ))}
@@ -390,16 +398,17 @@ export default function App() {
               </div>
 
               {/* CTA action link exactly in exact alignment with visual rules */}
-              <div className="pt-1">
+              <div className="pt-2 flex items-center">
+                {/* Horizontal line touching the button's outline */}
+                <span className="h-[2px] w-8 bg-white/40" />
+                
                 <button 
-                  className="group relative flex items-center gap-3 font-sans font-extrabold text-[11px] tracking-[0.25em] text-white hover:text-[#E31E24] uppercase italic transition-colors duration-300 pointer-events-auto cursor-pointer"
+                  className="group relative flex items-center gap-3 font-sans font-extrabold text-[11px] tracking-[0.25em] text-white hover:text-white uppercase italic transition-all duration-300 pointer-events-auto cursor-pointer border-2 border-white hover:border-[#E31E24] hover:bg-white/10 px-6 py-3 rounded-none"
                   id="cta-learn-more"
                   onClick={() => setIsOnboardingActive(true)}
                 >
                   <span>{activeSlide.ctaText}</span>
-                  
-                  {/* Horizontal dynamic animated expansion line indicator */}
-                  <span className="relative w-8 h-[2px] bg-white/40 group-hover:bg-[#E31E24] group-hover:w-12 transition-all duration-300 rounded" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -550,7 +559,7 @@ export default function App() {
               {/* Grayscale styled video header just like the vision image */}
               <div className="relative w-full h-48 md:h-56 overflow-hidden bg-gray-100">
                 <video 
-                  src="https://res.cloudinary.com/dsmsugpys/video/upload/v1780584745/IMG_3576_anxkvq.mov"
+                  src="https://res.cloudinary.com/dsmsugpys/video/upload/q_auto,vc_auto/v1780584745/IMG_3576_anxkvq.mp4"
                   className="w-full h-full object-cover grayscale brightness-95 contrast-[1.1] scale-102"
                   autoPlay
                   loop
@@ -578,6 +587,9 @@ export default function App() {
 
         </div>
       </section>
+
+      {/* CUSTOM RECREATED SECTION: MY VISUAL DIARY (GALLERY SUB-SECTION) */}
+      <VisualDiary />
 
       {/* SECTION 3: WHAT MEMBERS GET - STARRING CRITICAL LIGHT REPLICA DESIGN */}
       <section 
@@ -802,6 +814,9 @@ export default function App() {
         </div>
 
       </section>
+
+      {/* THE EVENT SCHEDULE SUBSECTION & NEWSLETTER RECREATED FROM SCREENSHOT */}
+      <EventSchedule />
 
       {/* SECTION 5: THE NEXT BREAKTHROUGH STARTS HERE (RECREATING SCREENSHOT WITH LUXURIOUS FOCUS) */}
       <section 

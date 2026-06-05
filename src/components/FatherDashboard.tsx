@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Home, Play, Award, Calendar, BookOpen, User, Trophy, Flame, Bell, CheckCircle, 
   Search, Bookmark, Sliders, ChevronRight, Share2, LogIn, Sparkles, MessageSquare, 
-  MapPin, Clock, ArrowRight, ArrowLeft, Zap, PlayCircle, Eye, ThumbsUp, Send, UserCheck, Shield, HelpCircle
+  MapPin, Clock, ArrowRight, ArrowLeft, Zap, PlayCircle, Eye, ThumbsUp, Send, UserCheck, Shield, HelpCircle, Radio
 } from 'lucide-react';
+import Logo from './Logo';
 
 interface ComponentProps {
   onBackToWeb: () => void;
@@ -141,12 +142,12 @@ const INITIAL_JIGI_EPISODES = [
 
 const INITIAL_LEADERBOARD = [
   { id: 1, rank: 1, name: "Pastor Tim", displayName: "@PastorTim", avatar: "https://res.cloudinary.com/dsmsugpys/image/upload/v1780587384/3_opqxbm.jpg", points: 280, tier: "Forest", region: "Lagos" },
-  { id: 2, rank: 2, name: "Olawale Johnson", displayName: "@WaleJ", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=100&h=100", points: 245, tier: "Tree", region: "Abuja" },
-  { id: 3, rank: 3, name: "David Okon", displayName: "@DaveO", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100", points: 230, tier: "Tree", region: "Port Harcourt" },
-  { id: 4, rank: 4, name: "Tunde Opeyemi", displayName: "@TundeO", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100&h=100", points: 185, tier: "Branch", region: "Lagos" },
-  { id: 5, rank: 5, name: "Chidi Nwachukwu", displayName: "@ChidiN", avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=100&h=100", points: 160, tier: "Branch", region: "Ibadan" },
-  { id: 6, rank: 6, name: "Emeka Okoye", displayName: "@EmekaO", avatar: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&q=80&w=100&h=100", points: 140, tier: "Root", region: "Abuja" },
-  { id: 7, rank: 7, name: "Abubakar Ibrahim", displayName: "@AbubakarI", avatar: "https://sm.ign.com/ign_ap/cover/a/avatar-the/avatar-the-last-airbender_9eeb.jpg", points: 120, tier: "Root", region: "London" }
+  { id: 2, rank: 2, name: "Olawale Johnson", displayName: "@WaleJ", avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=100&h=100", points: 245, tier: "Tree", region: "Abuja" },
+  { id: 3, rank: 3, name: "David Okon", displayName: "@DaveO", avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=100&h=100", points: 230, tier: "Tree", region: "Port Harcourt" },
+  { id: 4, rank: 4, name: "Tunde Opeyemi", displayName: "@TundeO", avatar: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&q=80&w=100&h=100", points: 185, tier: "Branch", region: "Lagos" },
+  { id: 5, rank: 5, name: "Chidi Nwachukwu", displayName: "@ChidiN", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=100&h=100", points: 160, tier: "Branch", region: "Ibadan" },
+  { id: 6, rank: 6, name: "Emeka Okoye", displayName: "@EmekaO", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=100&h=100", points: 140, tier: "Root", region: "Abuja" },
+  { id: 7, rank: 7, name: "Abubakar Ibrahim", displayName: "@AbubakarI", avatar: "https://images.unsplash.com/photo-1507152832244-10d45a7e3488?auto=format&fit=crop&q=80&w=100&h=100", points: 120, tier: "Root", region: "London" }
 ];
 
 const INITIAL_EVENTS = [
@@ -308,7 +309,18 @@ export default function FatherDashboard({ onBackToWeb, userProfile }: ComponentP
   const [registeredEvents, setRegisteredEvents] = useState<string[]>([]);
   const [reflectionTextInput, setReflectionTextInput] = useState("");
   const [selectedJigi, setSelectedJigi] = useState(INITIAL_JIGI_EPISODES[0]);
-  const [activeTab, setActiveTab] = useState<'home' | 'jigi' | 'challenges' | 'points' | 'leaderboard' | 'breakfast' | 'events' | 'resources' | 'profile'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'jigi' | 'challenges' | 'points' | 'leaderboard' | 'breakfast' | 'events' | 'resources' | 'profile' | 'watch'>('home');
+  const [isLivePlaying, setIsLivePlaying] = useState(false);
+  const [notepadNotes, setNotepadNotes] = useState<{ id: string; text: string; date: string }[]>([
+    { id: "note-1", text: "A father's primary legacy is not financial accumulation, but deliberate emotional presence and authentic discipline.", date: "Today, 10:45 AM" }
+  ]);
+  const [currentNoteText, setCurrentNoteText] = useState("");
+  const [liveChatMessages, setLiveChatMessages] = useState<{ id: string; author: string; text: string; time: string; avatar: string }[]>([
+    { id: "msg-1", author: "Pastor Tim", text: "Welcome fathers to the Live Stream! Today we are discussing practical keys of active engagement.", time: "10 mins ago", avatar: "https://res.cloudinary.com/dsmsugpys/image/upload/v1780587384/3_opqxbm.jpg" },
+    { id: "msg-2", author: "Olawale Johnson", text: "Ready to learn. Streaming from Ibadan live!", time: "8 mins ago", avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=100&h=100" },
+    { id: "msg-3", author: "Engr. Abubakar", text: "The presentation is super clear. Let us make Ibadan proud.", time: "5 mins ago", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100&h=100" }
+  ]);
+  const [newLiveMessage, setNewLiveMessage] = useState("");
   const [leaderboardFilter, setLeaderboardFilter] = useState("All");
   const [isJigiPlaying, setIsJigiPlaying] = useState(false);
   const [jigiPlayPercent, setJigiPlayPercent] = useState(0);
@@ -338,7 +350,7 @@ export default function FatherDashboard({ onBackToWeb, userProfile }: ComponentP
   const [jigiComments, setJigiComments] = useState<{ [key: string]: { author: string, text: string, time: string, avatar: string }[] }>({
     "jigi-1": [
       { author: "Pastor Tim", text: "Absolute cornerstone lesson. Fathers, share your specific resolutions below.", time: "2 hours ago", avatar: "https://res.cloudinary.com/dsmsugpys/image/upload/v1780587384/3_opqxbm.jpg" },
-      { author: "Olawale Johnson", text: "This hit me deep. I sat down with my son today and just apologized for my harsh tone last Friday. Radical change starter.", time: "1 day ago", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=100&h=100" }
+      { author: "Olawale Johnson", text: "This hit me deep. I sat down with my son today and just apologized for my harsh tone last Friday. Radical change starter.", time: "1 day ago", avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=100&h=100" }
     ]
   });
   const [newJigiComment, setNewJigiComment] = useState("");
@@ -597,9 +609,8 @@ export default function FatherDashboard({ onBackToWeb, userProfile }: ComponentP
           
           <div className="hidden sm:block h-6 w-[1px] bg-white/10" />
           
-          <div className="flex items-center gap-1">
-            <span className="font-sans font-black tracking-tight text-white uppercase text-[13px] sm:text-base">THE INTENTIONAL FATHER</span>
-            <span className="text-[#FE0000] font-black text-xs sm:text-[13px] tracking-widest px-1.5 py-0.5 bg-[#FE0000]/10 border border-[#FE0000]/20 rounded-md ml-1.5">MEMBER</span>
+          <div className="flex items-center">
+            <Logo />
           </div>
         </div>
 
@@ -691,6 +702,7 @@ export default function FatherDashboard({ onBackToWeb, userProfile }: ComponentP
       <nav className="bg-[#0E1B3D] border-b border-white/5 px-4 overflow-x-auto flex items-center gap-1 sm:gap-2 no-scrollbar scroll-smooth py-1.5 text-xs sm:text-sm">
         {[
           { key: 'home', icon: Home, label: 'Overview' },
+          { key: 'watch', icon: Radio, label: 'Watch Live' },
           { key: 'jigi', icon: Play, label: 'Weekly JIGI' },
           { key: 'challenges', icon: Flame, label: 'Daily Challenge' },
           { key: 'points', icon: Award, label: 'Gamification' },
@@ -1980,6 +1992,264 @@ export default function FatherDashboard({ onBackToWeb, userProfile }: ComponentP
                     <span className="text-[10px] text-gray-550 font-mono">1 week ago</span>
                   </div>
                 </div>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* TAB 10: WATCH US LIVE STREAM */}
+        {activeTab === 'watch' && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left animate-fadeIn">
+            
+            {/* LEFT MAIN STREAM PLAYBACK & DISCUSSION CHAT */}
+            <div className="lg:col-span-8 space-y-6">
+              
+              <div className="bg-[#111A33] border border-white/5 rounded-3xl p-6 shadow-xl space-y-6">
+                
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="font-sans font-black text-xl text-white uppercase tracking-wider flex items-center gap-2">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                      </span>
+                      Watch Us Live
+                    </h3>
+                    <p className="text-xs text-gray-400 mt-1">Tune into active live streams, programs, and virtual fellowships</p>
+                  </div>
+                  
+                  {/* LIVE XP REWARD INDICATION */}
+                  <div className="bg-red-500/10 border border-red-500/25 rounded-xl px-3.5 py-1.5 flex items-center gap-1.5 select-none self-start sm:self-center">
+                    <span className="text-xs animate-pulse">🔥</span>
+                    <span className="font-mono text-[10px] text-red-400 font-extrabold uppercase">Earn +25 XP / Hour</span>
+                  </div>
+                </div>
+
+                {/* Custom Playback Container with SVG rotating design */}
+                <div className="relative aspect-video rounded-2xl overflow-hidden bg-black group border border-white/10">
+                  {isLivePlaying ? (
+                    <iframe 
+                      src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&controls=1&modestbranding=1&showinfo=0&rel=0" 
+                      title="Intentional Fatherhood Live Stream"
+                      className="w-full h-full object-cover"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    /* Elegant Overlay Image and rotating Text Play Button */
+                    <div className="absolute inset-0 w-full h-full">
+                      <img 
+                        src="https://res.cloudinary.com/dsmsugpys/image/upload/v1780668261/10_y5fpy2.jpg" 
+                        alt="Watch live broadcast backdrop"
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover brightness-[0.35] transition-transform duration-500 group-hover:scale-102 grayscale filter contrast-110 select-none pointer-events-none"
+                      />
+                      
+                      {/* CENTRED SPINNING PRESS PLAY TEXT AND BUTTON */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="relative w-36 h-36 flex items-center justify-center cursor-pointer select-none" onClick={() => setIsLivePlaying(true)}>
+                          
+                          {/* Circular Rotating text */}
+                          <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
+                            <defs>
+                              <path id="circlePathLive" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
+                            </defs>
+                            <text className="text-[5px] tracking-[0.25em] font-bold font-sans fill-white/80 uppercase">
+                              <textPath href="#circlePathLive">
+                                • watch us live • join the brotherhood • learn and grow • live •
+                              </textPath>
+                            </text>
+                          </svg>
+
+                          {/* Central Pulsing Play Triangle Button */}
+                          <div className="w-16 h-16 rounded-full bg-[#FE0000] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 shadow-lg shadow-[#FE0000]/30 z-10">
+                            <Play className="w-6 h-6 fill-white translate-x-[2px]" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-white/5 font-sans">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                      <Radio className="w-5 h-5 text-red-500" />
+                    </div>
+                    <div>
+                      <h4 className="font-sans font-bold text-sm text-white">THE INTENTIONAL FATHER ANNUAL COHORT</h4>
+                      <p className="text-[11px] text-gray-400">Speaker: Pastor Tim &amp; Guest Mentors &bull; Live from Ibadan</p>
+                    </div>
+                  </div>
+                  
+                  <button 
+                    onClick={() => setIsLivePlaying(!isLivePlaying)}
+                    className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-sans text-xs font-semibold cursor-pointer transition-all"
+                  >
+                    {isLivePlaying ? "Reset Screen" : "Start Playback"}
+                  </button>
+                </div>
+
+              </div>
+
+              {/* LIVE FELLOWSHIP CHAT PANEL */}
+              <div className="bg-[#111A33] border border-white/5 rounded-3xl p-6 shadow-xl space-y-4">
+                <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                  <h4 className="font-sans font-black text-sm text-white uppercase tracking-wider flex items-center gap-2">
+                    <MessageSquare className="w-4 h-4 text-red-500" />
+                    Brotherhood Live Chat Feed
+                  </h4>
+                  <span className="text-[10px] font-mono text-white/50 bg-[#FE0000]/25 px-2.5 py-0.5 rounded-full uppercase tracking-wider font-extrabold border border-[#FE0000]/30">
+                    ● 1,240 Online
+                  </span>
+                </div>
+
+                {/* Chat Stream Box */}
+                <div className="h-[240px] overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                  {liveChatMessages.map((msg) => (
+                    <div key={msg.id} className="flex items-start gap-3 text-xs">
+                      <img 
+                        src={msg.avatar} 
+                        alt={msg.author} 
+                        className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+                      />
+                      <div className="flex-1 font-sans">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-white font-sans">{msg.author}</span>
+                          <span className="text-[9px] text-gray-500 font-mono">{msg.time}</span>
+                        </div>
+                        <p className="text-gray-300 mt-0.5 leading-relaxed bg-[#16203B] p-2.5 rounded-r-xl rounded-bl-xl border border-white/5">{msg.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Chat send action */}
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if(!newLiveMessage.trim()) return;
+                    const newMsg = {
+                      id: `msg-custom-${Date.now()}`,
+                      author: getDynamicDisplayName(),
+                      text: newLiveMessage.trim(),
+                      time: "Just now",
+                      avatar: getUserAvatarUrl(profile.fullName, "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&q=80&w=100&h=100")
+                    };
+                    setLiveChatMessages([...liveChatMessages, newMsg]);
+                    setNewLiveMessage("");
+                    // Add standard feedback points!
+                    setUserPoints(prev => prev + 5);
+                    setLifetimePoints(prev => prev + 5);
+                    triggerNotification("Sent to Live Chat Feed! +5 XP claimed!");
+                  }}
+                  className="flex gap-2"
+                >
+                  <input 
+                    type="text" 
+                    value={newLiveMessage}
+                    onChange={(e) => setNewLiveMessage(e.target.value)}
+                    placeholder="Type what you are learning to chat feed..."
+                    className="flex-grow bg-[#16203B] border border-white/5 hover:border-white/12 focus:border-[#FE0000] focus:ring-1 focus:ring-[#FE0000] outline-none text-white text-xs px-4 py-3 rounded-xl transition-all"
+                  />
+                  <button 
+                    type="submit"
+                    className="bg-[#FE0000] hover:bg-[#ff1e1e] text-white p-3 rounded-xl transition-transform active:scale-95 cursor-pointer flex-shrink-0 flex items-center justify-center"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+            {/* RIGHT SIDE LESSON NOTEPAD TAKEAWAYS */}
+            <div className="lg:col-span-4 space-y-6">
+              
+              <div className="bg-[#111A33] border border-white/5 rounded-3xl p-6 shadow-xl space-y-4">
+                <div className="border-b border-white/5 pb-3">
+                  <h4 className="font-sans font-black text-sm text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    My Learning Notepad
+                  </h4>
+                  <p className="text-[11px] text-gray-400 mt-1">Jot down insights, definitions, and action points as you watch.</p>
+                </div>
+
+                {/* Notepad Write Form */}
+                <div className="space-y-3">
+                  <textarea 
+                    value={currentNoteText}
+                    onChange={(e) => setCurrentNoteText(e.target.value)}
+                    placeholder="E.g., I must schedule 15 minutes of uninterrupted, eye-level conversation with my children daily."
+                    rows={4}
+                    className="w-full bg-[#16203B] border border-white/5 hover:border-white/10 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 outline-none text-white text-xs px-4 py-3 rounded-xl transition-all leading-relaxed resize-none font-sans"
+                  />
+                  
+                  <button 
+                    onClick={() => {
+                      if (!currentNoteText.trim()) return;
+                      const newNote = {
+                        id: `note-${Date.now()}`,
+                        text: currentNoteText.trim(),
+                        date: "Just now"
+                      };
+                      setNotepadNotes([newNote, ...notepadNotes]);
+                      setCurrentNoteText("");
+                      setUserPoints(prev => prev + 10);
+                      setLifetimePoints(prev => prev + 10);
+                      triggerNotification("Learning insight saved to your secure diary! +10 XP claimed!");
+                    }}
+                    disabled={!currentNoteText.trim()}
+                    className="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 disabled:opacity-50 disabled:pointer-events-none text-white font-sans text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl cursor-pointer transition-all hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/10"
+                  >
+                    <span>Save Takeaway</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* List of saved takeaways */}
+                <div className="space-y-3 pt-3 border-t border-white/5">
+                  <h5 className="font-sans font-bold text-xs text-white uppercase tracking-wider">Jotted Lessons Timeline</h5>
+                  
+                  {notepadNotes.length === 0 ? (
+                    <div className="text-center py-6 text-gray-500 text-[11px] leading-relaxed">
+                      Your Notepad is currently empty. Start jotting thoughts above to construct your personalized playbook!
+                    </div>
+                  ) : (
+                    <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
+                      {notepadNotes.map((note) => (
+                        <div key={note.id} className="bg-[#16203B] p-3 rounded-xl border border-white/5 space-y-1">
+                          <p className="text-[11px] text-gray-300 leading-relaxed font-sans">{note.text}</p>
+                          <div className="flex items-center justify-between pt-1">
+                            <span className="text-[9px] text-[#ab8bfd] font-mono">{note.date}</span>
+                            <button 
+                              onClick={() => {
+                                setNotepadNotes(prev => prev.filter(n => n.id !== note.id));
+                                triggerNotification("Takeaway entry removed.");
+                              }}
+                              className="text-[10px] text-red-400/70 hover:text-red-400 font-sans cursor-pointer"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+              </div>
+              
+              {/* ACCOUNTABILITY RULES INFO BOX */}
+              <div className="bg-gradient-to-br from-[#1E1122] to-[#120F35] border border-white/5 rounded-3xl p-5 space-y-2.5 font-sans">
+                <span className="text-amber-400 text-xs font-mono">🎯 ACCOUNTABILITY REWARDS</span>
+                <p className="font-sans font-bold text-xs text-white leading-normal uppercase">Write and Refine</p>
+                <p className="font-sans text-[11px] text-gray-400 leading-relaxed">
+                  Active, mindful participation activates critical centers of learning. By interacting with the chat feed and saving reflection takeaways in your notepad, you earn real-time points towards moving up the Brotherhood Leaderboard tiers.
+                </p>
               </div>
 
             </div>
